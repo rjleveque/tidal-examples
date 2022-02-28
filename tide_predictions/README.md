@@ -11,9 +11,7 @@ Harmonic Constituents data is scraped from NOAA's gauge station harmonic constit
 * Scipy
 * Pandas 
 * Request 
-* lxml
-
-To install dependencies, run <b> pip install -r requirements.txt </b> . 
+* LXML
 
 # Usage
 Use [Boundary_Conditions.ipynb](Boundary_Conditions.ipynb) to modify tide prediction examples, develop your own tide predictions, and obtain code for Clawpack implementation if placed in <b>gauge_afteraxes( )</b> in <b>setplot.py</b> and calling <b>surge( )</b> method with arguments set as: <b>(stationID, beginning_date, end_date, landfall_date)</b> to obtain NOAA's observed storm surge.
