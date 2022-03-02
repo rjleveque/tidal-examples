@@ -14,7 +14,7 @@ Harmonic Constituents data is scraped from NOAA's gauge station harmonic constit
 * LXML
 
 # Usage
-Use [Tide_Module_Examples.ipynb](Tide_Module_Examples.ipynb) to modify tide prediction examples, develop your own tide predictions, and obtain code for Clawpack implementation if placed in '''gauge_afteraxes( )''' in <b>setplot.py</b> and calling <b>surge( )</b> method with arguments set as: <b>(stationID, beginning_date, end_date, landfall_date)</b> to obtain NOAA's observed storm surge.
+Use [Tide_Module_Examples.ipynb](Tide_Module_Examples.ipynb) to modify tide prediction examples, develop your own tide predictions, and obtain code for Clawpack implementation if placed in ```gauge_afteraxes( )``` in <b>setplot.py</b> and calling <b>surge( )</b> method with arguments set as: <b>(stationID, beginning_date, end_date, landfall_date)</b> to obtain NOAA's observed storm surge.
 
 Modify NOAA station ID and date(s) of prediction (UTC) to make your own example. 
 
