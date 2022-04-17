@@ -132,8 +132,26 @@ def plot_tidal_bulges(theta_moon=0, theta_sun=None):
     
     if 0:
         figure()
-        #plot(lam, r3(lam-lam_sun*pi/180), 'm')
-        #plot(lam, r2(lam-lam_moon*pi/180), 'b')
         plot(theta, x_bulge_moon - x_sea, 'm')
         plot(theta, x_bulge_total - x_sea, 'b')
+    
+
+def eta(theta, phi=0, epsilon=epsilon_moon, beta=0):
+    """
+    Tidal displacement of sea surface due to a distant body (moon or sun).
+    inputs:
+        theta: longitude (may be an array of longitudes)
+        phi: latitude
+        epsilon: tidal acceleration amplitude
+        beta: declination of body relative to equatorial plane
+    output:
+        eta: surface displacement in meters
+    """
+    
+    cos_theta = cosd(theta)*cosd(phi)*cosd(beta) + sind(phi)*sind(beta)
+    cos_2theta = 2*cos_theta**2 - 1.
+    eta = epsilon*Re/(2*g) * cos_2theta
+    #import pdb; pdb.set_trace()
+    return eta
+    
     
