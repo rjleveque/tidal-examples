@@ -7,17 +7,7 @@ for discussion in a notebook.
 import matplotlib.pyplot as plt
 import numpy as np
 import datetime
-
-#from clawpack.geoclaw import tidetools
-
-# Eventually move tidetools.py to geoclaw
-# For development purposes, this is temporarily in this repo:
-
 import os, sys
-pathstr = os.path.abspath('..')
-if pathstr not in sys.path:
-    sys.path.insert(0,pathstr)
-import tidetools
 
  
 #Station Information
@@ -28,11 +18,38 @@ datum = 'MTL'
 beg_date = datetime.datetime(2022, 2, 25, hour=0)
 end_date = datetime.datetime(2022, 4, 3, hour=0)
 
-#Predict tide with arguments set as: (station_id, beg_prediction_date, end_prediction_date)
-predicted_tide = tidetools.predict_tide(station_id, beg_date, end_date, datum=datum)
+use_stored_data = True
+fname_data = 'wake_island_tide_data.txt'
 
-total_hrs=((end_date - beg_date).total_seconds())/3600.
-hours = np.arange(0, total_hrs+0.001, 0.1)
+if use_stored_data:
+    hours, predicted_tide = np.loadtxt(fname_data, unpack=True)
+    total_hrs = hours[-1]
+    print('Loaded data from %s' % fname_data)
+
+else:
+    # fetch the data and store it for later use:
+
+    #from clawpack.geoclaw import tidetools
+
+    # Eventually move tidetools.py to geoclaw
+    # For development purposes, this is temporarily in this repo:
+
+    CLAW = os.environ['CLAW']
+    pathstr = os.path.join(CLAW,'tidal-examples')
+    if pathstr not in sys.path:
+        sys.path.insert(0,pathstr)
+    import tidetools
+
+    predicted_tide = tidetools.predict_tide(station_id, beg_date, 
+                                            end_date, datum=datum)
+
+    total_hrs=((end_date - beg_date).total_seconds())/3600.
+    hours = np.arange(0, total_hrs+0.001, 0.1)
+
+    data = np.vstack((hours, predicted_tide)).T
+    np.savetxt(fname_data, data)
+    print('Saved %s' % fname_data)
+
 
 def make_tide_plot_4weeks():
     plt.figure(figsize=(13,6))
